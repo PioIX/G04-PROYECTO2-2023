@@ -90,7 +90,7 @@
     border-bottom: 2px solid #fff;
   }
   
-  .button {
+  .btn-registrar {
     border-radius: 16px;
     padding: 4px 12px;
     background: #fff;
@@ -101,3 +101,13 @@
     color: #41A5DD;
   }
   
+  .btn-cancelar {
+    border-radius: 16px;
+    padding: 4px 12px;
+    background: #fff;
+    font-size: 1.1em;
+    font-weight: 600;
+    box-shadow: 0;
+    border: 0;
+    color: #41A5DD;
+  }

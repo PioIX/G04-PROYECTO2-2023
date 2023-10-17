@@ -1,21 +1,28 @@
 
 <body>
-  <div class="registro-form">
-      <h2>Registro de Usuario</h2>
-      <form action="/regi" method="POST" class="container-sm">    
-        <input type="text" class="form-control" id="DNI" name="dni" value="" placeholder="DNI">
-        <input type="text" class="form-control" id="nombre" name="nombre" value="" placeholder="Nombre">
-        <input type="text" class="form-control" id="usuario" name="usuario" value="" placeholder="Usuario">
-        <input type="password" class="form-control" id="contraseña" name="pass" value="" placeholder="Contraseña">
-        <button  class="btn-registro" type="submit">Registro </button>  
-       </form>
-       <form action="/" method="GET" class="container-sm">
-        
+  <div class="fluid-container">
+    <div class="container"> 
+        <div class="col-lg-7 form-section">
+          <div class="form-conatiner">
+            <h2 class="heading__h2"><i style="font-size: 1.5em;" class="fa fa-spotify"></i> Unison</h2>
+            <br><br>  
+            <p class="links__p"><a href="#">Registro de Usuario</a> 
+
+      <form action="/registro" method="POST" class="container-sm">    
+       <form action="/">
+              <label for="usuarioNOMBRE">NOMBRE</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" value="" placeholder="Introduce tu nombre completo">
+              <label for="usuarioEMAIL">EMAIL</label>
+              <input id="email" type="email" pattern=".+@gmail.com"  required placeholder="Introduce tu dirección de correo electrónico">
+              <label for="usuarioCONTRASEÑA">CONTRASEÑA</label>
+              <input type="password" class="form-control" id="contraseña" name="pass" value="" placeholder="Crear una contraseña segura">
              <input type="submit" class="btn-cancelar" value="Cancelar">
-        
+         <input type="submit" class="btn-registrar" value="Registrar">
      </form>
     </div>
-<link rel="stylesheet" type="text/css" href="/css/login.css" />
+<link rel="stylesheet" type="text/css" href="/css/signup.css" />
+
+<script src="index.js"></script>
 </body>
  
 

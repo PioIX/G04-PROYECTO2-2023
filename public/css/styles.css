@@ -38,7 +38,7 @@ body {
 	z-index: 30;
 	top: 0;
 	right: 0;
-	width: calc(100% - 20vw);
+	width: calc(100% - 17vw);
 }
 
 .container-arrows {
@@ -118,7 +118,7 @@ body {
 
 	z-index: 25;
 	position: fixed;
-	width: 20vw;
+	width: 17vw;
 	height: calc(100vh);
 }
 
@@ -290,7 +290,7 @@ body {
 .card-spotify-playlists {
 	background-color: #181818;
 	border-radius: 0.5rem;
-	padding: 1.6rem;
+	padding: 1.5rem;
 	box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
 	transition: background-color 0.3s ease;
 	cursor: pointer;
