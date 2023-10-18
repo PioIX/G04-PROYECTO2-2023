@@ -14,7 +14,7 @@ const express = require('express'); //Para el manejo del servidor Web
 const exphbs  = require('express-handlebars'); //Para el manejo de los HTML
 const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); //Añado el archivo mysql.js presente en la carpeta módulos
-//hola
+const fileUpload = require('express-fileupload'); //Para la carga de archivos
 const app = express(); //Inicializo express para el manejo de las peticiones
 
 app.use(express.static('public')); //Expongo al lado cliente la carpeta "public"
@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'})); //Inicializo Handlebars. Utilizo como base el layout "Main".
 app.set('view engine', 'handlebars'); //Inicializo Handlebars
+app.use(fileUpload());
 
 const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
 
@@ -119,3 +120,48 @@ app.post('/logueo', async (req, res)=>
         }
 );
 
+function subir_audio(req, carpeta, isAudio, callback)
+{
+//Posibles respuestas de la función:
+// 0: Se recibió un archivo, pero no era tipo PNG, GIF o JPG (en caso de que es Imagen sea true).
+// -1: No se recibieron archivos.
+// -2:Se recibieron archivos pero no pudieron ser copiados a la carpeta solicitada en el servidor.
+// String con el nombre del archivo: Se recibieron archivos y copiaron exitosamente.
+if (!req.files)
+{
+callback(-1);
+}
+else
+{
+let file = req.files.uploaded_audio;
+if(file.mimetype == "mp3/wav" || file.mimetype == "mp3/wav" || 
+file.mimetype == "mp3/wav" || isAudio == false)
+{
+file.mv(carpeta + file.name, function(err)
+{
+if (err)
+{
+callback(-2);
+}
+else
+{
+callback(file.name);
+}
+});
+}
+else
+{
+console.log("Formato no permitido, utilice '.mp3','.wav'.");
+callback(0);
+}
+}
+}
+
+app.post("/public", (req,res) =>{
+    console.log(rta);
+    res.render('home', null); //Si tengo que contestarle al front, lo hago aquí.
+})
+/*
+subir_audio(req, "public/", false, function(rta){
+    
+    });*/
