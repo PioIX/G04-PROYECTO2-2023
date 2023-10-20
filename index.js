@@ -82,7 +82,7 @@ app.post('/registro', async (req, res) =>{
     
     if (dev == "1") {
 
-        res.render('registrado2', { mensaje:"Se ha registrado Exitosamente!!!"} );
+        res.render('home', { mensaje:"Se ha registrado Exitosamente!!!"} );
         //alert( " Bienvenido " + req.body.nombre + ", usted está registrado como usuario "  );
     }
     else{
@@ -108,6 +108,12 @@ app.get('/registro', function(req, res)
 {
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('registro', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.post('/registro', function(req, res)
+{
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
 app.post('/logueo', async (req, res)=>
@@ -157,11 +163,19 @@ callback(0);
 }
 }
 
-app.post("/public", (req,res) =>{
-    console.log(rta);
-    res.render('home', null); //Si tengo que contestarle al front, lo hago aquí.
-})
-/*
-subir_audio(req, "public/", false, function(rta){
+app.get("/subir", (req,res) =>{
     
-    });*/
+
+        
+        res.render('subir', null); //Si tengo que contestarle al front, lo hago aquí.
+
+})
+
+
+app.post("/subir", (req,res) =>{
+    console.log(rta);
+    subir_audio(req, "subir/", false, function(rta){
+        
+        res.render('home', null); //Si tengo que contestarle al front, lo hago aquí.
+    });
+})

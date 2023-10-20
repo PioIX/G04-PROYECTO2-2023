@@ -1,0 +1,19 @@
+<script src="index.js"></script>
+
+<div class="file-upload">
+  <div class="file-select">
+    <div class="file-select-button" id="fileName">Subir Archivo</div>
+    <div class="file-select-name" id="noFile">No seleccionaste archivo...</div> 
+    <input type="file" name="chooseFile" id="chooseFile">
+  </div>
+</div>
+
+
+
+
+<form action="/subir" method="POST" enctype="multipart/form-data">
+<label for="usuario_id">Usuario</label>
+<input type="text" name="usuario" value="" placeholder="Ingrese un nombre de usu
+ario">
+<input class="form-control" type="file" name="uploaded_audio" accept=""/>
+</form>
