@@ -179,3 +179,5 @@ app.post("/subir", (req,res) =>{
         res.render('home', null); //Si tengo que contestarle al front, lo hago aquí.
     });
 })
+
+await MySQL.realizarSelect(`SELECT   FROM Temas (ID_Tema, nombre, artista, duracion) VALUES ("${idt}",  "${nomt}", "${art}", "${dur}")`) 
