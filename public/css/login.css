@@ -90,7 +90,7 @@ input[type=text] {
   border-bottom: 2px solid #fff;
 }
 
-.btn-iniciar {
+.btn-login {
   border-radius: 16px;
   padding: 4px 12px;
   background: #fff;
@@ -102,6 +102,17 @@ input[type=text] {
 }
 
 .btn-cancelar {
+  border-radius: 16px;
+  padding: 4px 12px;
+  background: #fff;
+  font-size: 1.1em;
+  font-weight: 600;
+  box-shadow: 0;
+  border: 0;
+  color: #41A5DD;
+}
+
+.btn-registro {
   border-radius: 16px;
   padding: 4px 12px;
   background: #fff;
