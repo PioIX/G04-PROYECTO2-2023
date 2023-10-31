@@ -180,4 +180,8 @@ app.post("/subir", (req,res) =>{
     });
 })
 
+app.post("/obtenerLink",async (req,res) => {
+    let link = await MySQL.realizarQuery(`SELECT URL FROM Temas WHERE ID_Tema = "${req.body.tema}";`);
+    res.send({url: link})
+})
 //await MySQL.realizarSelect(`SELECT   FROM Temas (ID_Tema, nombre, artista, duracion) VALUES ("${idt}",  "${nomt}", "${art}", "${dur}")`) 
