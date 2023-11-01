@@ -185,3 +185,15 @@ app.post("/obtenerLink",async (req,res) => {
     res.send({url: link})
 })
 //await MySQL.realizarSelect(`SELECT   FROM Temas (ID_Tema, nombre, artista, duracion) VALUES ("${idt}",  "${nomt}", "${art}", "${dur}")`) 
+
+app.get('/buscar', function(req, res)
+{
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('buscar', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.post('/buscar', function(req, res)
+{
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('buscar', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});

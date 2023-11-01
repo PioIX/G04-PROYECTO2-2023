@@ -1,0 +1,28 @@
+.home-searchbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .home-searchbox-input {
+    height: 30px;
+    width: 300px;
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    border: 1px solid #b3b3b3;
+    padding: 0 4px;
+    margin-right: 1rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .home-searchbox-button {
+    height: 30px;
+    width: 100px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #1DB954;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+  }
