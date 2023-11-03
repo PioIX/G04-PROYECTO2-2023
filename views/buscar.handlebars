@@ -1,23 +1,21 @@
+<!-- barra de busqueda -->
+<div class="buscador">
+  <label for="buscador1"><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      fill="currentColor"
+      class="bi bi-search"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+      />
+    </svg></label>
+  <input type="search" id="buscador1" name="buscador1" />
+  <input type="submit" value="Buscar!" onclick="pulseBuscar()" />
+</div>
 
-var consulta = $("#searchTable").DataTable();
-
-$("#inputBusqueda").keyup(function(){
-	consulta.search($(this).val()).draw();
-
-	$("header").css({
-		"height": "100vh",
-		"background": "rgba(0,0,0,0.5)"
-	})
-
-	if ($("#inputBusqueda").val() == ""){
-		$("header").css({
-			"height": "auto",
-			"background": "none"
-		})
-
-		$("#search").hide()
-
-	} else {
-		$("#search").fadeIn("fast");
-	}
-})
+<section class="container" id="canciones">
+  
+</section>
