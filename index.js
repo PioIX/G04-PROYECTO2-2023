@@ -185,6 +185,6 @@ app.post('/buscar', function (req, res) {
 app.post('/buscadorDeCanciones',async function (req, res) {
     console.log("Buscaron: ", req.body.buscador)
 
-    let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista FROM Temas WHERE Nombre LIKE "%${req.body.buscador}%"; `)
+    let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas WHERE Nombre LIKE "%${req.body.buscador}%"; `)
     res.send(canciones)
 });
