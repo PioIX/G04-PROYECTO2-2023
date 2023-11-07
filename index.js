@@ -16,6 +16,17 @@ const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
 const MySQL = require('./modulos/mysql'); //Añado el archivo mysql.js presente en la carpeta módulos
 const fileUpload = require('express-fileupload'); //Para la carga de archivos
 const app = express(); //Inicializo express para el manejo de las peticiones
+const { initializeApp } = require("firebase/app");
+const {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  GoogleAuthProvider,
+} = require("firebase/auth");
+
+
 
 app.use(express.static('public')); //Expongo al lado cliente la carpeta "public"
 
@@ -43,32 +54,81 @@ app.listen(Listen_Port, function () {
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
 */
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyA936j4rOJbIGAiPMENWJAMbIAeCULI8J8",
+    authDomain: "infothebest-3b261.firebaseapp.com",
+    projectId: "infothebest-3b261",
+    storageBucket: "infothebest-3b261.appspot.com",
+    messagingSenderId: "125429100089",
+    appId: "1:125429100089:web:707f20f776e39a3d8367e8",
+  };
+  
+  const appFirebase = initializeApp(firebaseConfig);
+  const auth = getAuth(appFirebase);
+  
+  // Importar AuthService
+  const authService = require("./authService");
+  
+  app.get("/", (req, res) => {
+    res.render("home");
+  });
+  
+  app.get("/register", (req, res) => {
+    res.render("register");
+  });
+  
+  app.post("/register", async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      await authService.registerUser(auth, { email, password });
+      res.render("register", {
+        message: "Registro exitoso. Puedes iniciar sesión ahora.",
+      });
+    } catch (error) {
+      console.error("Error en el registro:", error);
+      res.render("register", {
+        message: "Error en el registro: " + error.message,
+      });
+    }
+  });
+  
+  app.get("/login", (req, res) => {
+    res.render("login");
+  });
+  
+  app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      const userCredential = await authService.loginUser(auth, {
+        email,
+        password,
+      });
+      // Aquí puedes redirigir al usuario a la página que desees después del inicio de sesión exitoso
+      res.redirect("/dashboard");
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      res.render("login", {
+        message: "Error en el inicio de sesión: " + error.message,
+      });
+    }
+  });
+  
+  app.get("/dashboard", (req, res) => {
+    // Agrega aquí la lógica para mostrar la página del dashboard
+    res.render("dashboard");
+  });
+  
 
+  
 app.get('/', function (req, res) {
     //Petición GET con URL = "/", lease, página principal.
     console.log(req.query); //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('home', null); //Renderizo página "login" sin pasar ningún objeto a Handlebars
 });
 
-app.post('/login', function (req, res) {
-    //Petición POST con URL = "/login"
-    console.log("Soy un pedido POST", req.body);
-    //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método POST
-    //res.render('home', { mensaje: "Hola mundo!", usuario: req.body.usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
-    res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
-});
-
-app.put('/login', function (req, res) {
-    //Petición PUT con URL = "/login"
-    console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
-    res.send(null);
-});
-
-app.delete('/login', function (req, res) {
-    //Petición DELETE con URL = "/login"
-    console.log("Soy un pedido DELETE", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
-    res.send(null);
-});
 
 app.post('/registro', async (req, res) => {
 
