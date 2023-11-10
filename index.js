@@ -248,3 +248,13 @@ app.post('/buscadorDeCanciones',async function (req, res) {
     let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas WHERE Nombre LIKE "%${req.body.buscador}%"; `)
     res.send(canciones)
 });
+
+app.get('/megusta', function (req, res) {
+  //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+  res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+app.post('/megusta', function (req, res) {
+  //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+  res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
