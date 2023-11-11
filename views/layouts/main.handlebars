@@ -5,6 +5,7 @@
      <meta name="author" content="Caamaño, Lamalfa, Stachiotti" />
      <title>Unison</title>
 	 	<script src="/js/dom.js"></script>
+		<script src="/js/buscar.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -16,11 +17,13 @@ src="https://kit.fontawesome.com/81581fb069.js"
 		<!-- Script personal -->
 		<script src="/js/index2.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="/css/buscar.css" />
 
 </head>
 <body>
 	<main class="main container">
 		<div class="container d-flex justify-content-end align-items-center flex-column" style="height: 100%;">
+			{{> header }}
 			{{{body}}}
 		</div>
 	</main>

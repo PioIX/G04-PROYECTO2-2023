@@ -34,6 +34,10 @@ function onPlayerReady(event) {
   event.target.playVideo();
 }
 
+function reproductor() {
+  /*Creo que tenes q llamnar por dom al frame de youtube*/playVideo()
+}
+
 // 5. The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
@@ -46,4 +50,15 @@ function onPlayerStateChange(event) {
 }
 function stopVideo() {
   player.stopVideo();
+}
+
+function irAMeGusta() {
+  location.href = '/megusta'
+}
+
+ // Ejemplo: Pausar/Reproducir el video cuando se hace clic en el footer
+ if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+  player.pauseVideo();
+} else {
+  player.playVideo();
 }
