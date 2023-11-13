@@ -463,3 +463,143 @@ body {
     font-size: 2.3rem;
     padding-left: .5rem;
 }
+
+/* Nav Footer*/
+.nav-footer{
+    position: fixed;
+    background-color: #1a1a1a;
+    top: 88%;
+    width: 100%;
+    height: 99px;
+    z-index: 1;
+    padding:  10px 15px 0px 15px;
+    border-top: 1px solid rgb(92, 92, 92);
+    display: flex;
+}
+
+.container-music{
+    position: relative;
+    height: 75px;
+    width: 300px;
+    display: flex;
+}
+
+.song-rp{
+    position: relative;
+    height: 100%;
+    width: 80px;
+    padding: 5px;
+}
+
+.song-rp img{
+    height: 100%;
+    width: 100%;
+}
+
+.descr-song {
+    position: relative;
+    padding-left: 5px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;    
+}
+
+.descr-song label{
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 24px;
+    text-transform: none;
+    text-align: left;
+}
+
+.descr-song a {
+    font-size: 12px;
+    color: #999898;
+    font-weight: 700;
+    line-height: 12px;
+    text-transform: none;
+    text-align: left;
+}
+
+.descr-song a:hover{
+    text-decoration: underline;
+    color: #fff;
+}
+
+.heart{
+    position: relative;
+    margin-top: 25px;
+    margin-left: 5%;
+}
+
+.repr{
+    position: relative;
+    margin-left: 12%;
+    height: 75px;
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.play{
+    position: relative;
+    margin-top: -30px;
+    height: 40px;
+    width: 40px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #fff;
+}
+
+.play:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#stp{
+    display: none;
+}
+
+.return{
+    position: relative;
+    height: 20px;
+    width: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: -25px;
+    margin-right: 5%;
+}
+
+.return svg{
+    height: 100%;
+    width: 100%;
+    fill: rgb(80, 80, 80);
+}
+
+.next{
+    position: relative;
+    height: 20px;
+    width: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: -25px;
+    margin-left: 5%;
+}
+
+.next svg{
+    height: 100%;
+    width: 100%;
+    fill: rgb(80, 80, 80);
+}
+
+.next svg:hover, .return svg:hover{
+    fill: #fff;
+}
+/* Nav Footer*/

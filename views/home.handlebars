@@ -1,11 +1,11 @@
-{{> header this}}
+
 <!-- Contenido Principal -->
 			<section class="main-content">
 				<!-- 1 Fila -->
 				<div class="container-name-concentracion">
 					<h1 class="title-playlist">Albumes</h1>
 					<div class="container-card-concentracion">
-						<div class="card-concentracion">
+						<div class="card-concentracion" onclick="reproducirAlbum('album1')">
 							<div class="card">
 								<div class="card-img">
 									<img
@@ -329,6 +329,60 @@
 
 				</div>
 			</footer>
+  <div class="nav-footer">
+            <div class="container-music">
+				<iframe id="player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" title="YouTube video player" width="640" height="360" src="https://www.youtube.com/embed/null?enablejsapi=1&amp;origin=http%3A%2F%2Flocalhost%3A3000&amp;widgetid=1" 
+				style="
+				z-index: 1;
+    			height: 100px;
+    			width: 200px;
+    			position: absolute;
+				left: 900px;
+   				bottom: 0px;
+    			right: 15px;"
+				></iframe>
+                <div class="song-rp">
+                    <img src="https://i.imgur.com/ziJH6Xg.jpg" alt="">
+                </div>
+            <div class="descr-song">
+        				<label for="">So Beautiful</label>
+       			 <div id="youtube-player"></div>
+                </div>
+                <div class="heart">
+                    <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path fill="none" d="M0 0h16v16H0z"></path>
+                        <path
+                            d="M13.797 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253c-.77.77-1.194 1.794-1.194 2.883s.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195a4.052 4.052 0 001.195-2.883 4.057 4.057 0 00-1.196-2.883z"
+                            fill="#00913f"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="repr">
+                <div class="timer">
 
+                </div>
+                <div class="return">
+                    <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"></path>
+                    </svg>
+                </div>
+                <div class="play">
+                    <svg id="play" role="img" height="16" width="16" viewBox="0 0 16 16"
+                        class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path d="M4.018 14L14.41 8 4.018 2z"></path>
+                    </svg>
+                    <svg id="stp" role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path fill="none" d="M0 0h16v16H0z"></path>
+                        <path d="M3 2h3v12H3zm7 0h3v12h-3z"></path>
+                    </svg>
+                </div>
+                <div class="next">
+                    <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div id="player"></div>

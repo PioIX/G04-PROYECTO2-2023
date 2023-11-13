@@ -10,7 +10,7 @@ host: "10.1.5.205", //IP privada del servidor del colegio
 //host: "186.18.137.196", //IP pública del servidor del colegio
 user:"2023_5INF_G04",
 password: "sanlorenzo",
-database: "2023_5INF_G04",
+database: "2023-5INF-G04",
 port: 3306,
 charset: 'UTF8_GENERAL_CI'
 }

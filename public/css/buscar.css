@@ -1,0 +1,37 @@
+/*   el buscador de la pagina */
+.buscador{
+  grid-row: 3/4;
+  float: left;
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-left: 70%;
+}
+  #buscador1{
+  font-family: Source Sans Pro, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  background: #ededed;
+  border-radius: 20px;
+  border-style: none;
+  padding: 10px;
+  min-width: 200%;
+  height: 32px;
+}
+input[type=submit]{
+  font-family: Source Sans Pro, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #ffffff;
+  font-size: 14px;
+  height: 32px;
+  background: #218242;
+  border-style: none;
+  border-radius: 20px;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}

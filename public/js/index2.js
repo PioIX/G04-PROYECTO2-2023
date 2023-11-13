@@ -57,3 +57,27 @@ containerConcentracion.forEach(card => {
 containerSpotifyPlaylists.forEach(card => {
 	createButton(card);
 });
+
+async function llamarATema1(tema) {
+	data ={
+		tema: tema
+	}
+	try {
+		const response = await fetch("/obtenerLink", {
+		  method: "POST", // or 'POST'
+		  headers: {
+			"Content-Type": "application/json",
+		  },
+		  body: JSON.stringify(data),
+		});
+		
+		//En result obtengo la respuesta
+		const result = await response.json();
+		console.log("Success:", result);
+		return result.url[0].URL
+		//reproducirYoutube(result.url[0].URL)
+	  } catch (error) {
+		console.error("Error:", error);
+	  }
+}
+
