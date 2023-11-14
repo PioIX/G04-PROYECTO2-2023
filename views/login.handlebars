@@ -1,15 +1,26 @@
- <div class="login-form">
+ <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <meta charset="utf-8"> 
+		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+       <link rel="stylesheet" href="/public/css/login.css">   
+	
+    </head>
+<body>
+ 
+  <div  class="form-section">
       <h2>Login de Usuario</h2>
-      <form action="/logueo" method="POST" id="form1" class="container-sm">    
-        <input type="text" class="form-control" id="usuarioId" name="usuario" value="" placeholder="Usuario">
-        <input type="password" class="form-control" id="passwordId" name="password" placeholder="Contraseña">
+      <form action="/logueo" method="POST" id="form1" class="form-section">    
+        <input type="text" class="input" id="usuarioId" name="usuario" value="" placeholder="Usuario">
+        <input type="password" class="input" id="passwordId" name="password" placeholder="Contraseña">
         <div>
           <input type="button" onclick="miFunc()" class="btn-login" value="Ingresar">
         </div>
        </form>
        <a href="/registro" class="btn-registro">Registro</a>
-       <a href="/" class="btn-inicio">Inicio</a>
-    </div>
+       <a href="/" class="btn-cancelar">Inicio</a>
+  </div>
 
 
 <script>
@@ -33,7 +44,7 @@ async function putJSON(data) {
  
          //En result obtengo la respuesta
          const result = await response.json();
-         //console.log("Success:", result);
+         console.log("Success:", result);
           
          if (result.validar == false) {
           alert("Los datos son incorrectos")
@@ -71,12 +82,27 @@ function login() {
 
 </html>  
 
-
-<!-- login.handlebars 
+<!--
+ login.handlebars 
 <h1>Iniciar sesión</h1>
 <form action="/login" method="post">
   <input type="email" name="email" placeholder="Correo electrónico" required />
   <input type="password" name="password" placeholder="Contraseña" required />
   <button type="submit">Iniciar sesión</button>
 </form>
-<div>{{message}}</div>-->
+<div>{{message}}</div>
+-->
+
+<!--
+login.handlebars
+ <h1>Iniciar sesión</h1>
+      <form action="/logueo" method="POST" id="form1" class="form-section">    
+        <input type="text" class="input" id="usuarioId" name="usuario" value="" placeholder="Usuario">
+        <input type="password" class="input" id="passwordId" name="password" placeholder="Contraseña">
+        <div>
+          <input type="button" onclick="miFunc()" class="btn-login" value="Ingresar">
+        </div>
+       </form>
+       <a href="/registro" class="btn-registro">Registro</a>
+       <a href="/" class="btn-cancelar">Inicio</a>
+-->

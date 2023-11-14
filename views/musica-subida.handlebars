@@ -7,19 +7,19 @@
 						<div class="card-concentracion" onclick="reproducirAlbum('album1')">
 							<div class="card">
 								<div class="links-footer">
-    								<ul>
-                 						{{#each vector}}
-                       			        	<li> <a>{{this}} </a>  </li>
-             						    {{/each}}
+								<ul>
+             						{{#each vector}}
+                      				<li> <a>{{this}} </a>  </li>
+             						{{/each}}
           							</ul>
-								</div>							
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
 			<!-- Parte final  -->
-
+		
   <div class="nav-footer">
             <div class="container-music">
 				<iframe id="player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" title="YouTube video player" width="640" height="360" src="https://www.youtube.com/embed/null?enablejsapi=1&amp;origin=http%3A%2F%2Flocalhost%3A3000&amp;widgetid=1" 
@@ -76,5 +76,18 @@
             </div>
         </div>
     </div>
+
+<script>
+	$(document).ready(function() {
+		$('#Temas').Datatable({
+
+		});
+
+	});
+
+</script>
+
+
+
 
 <div id="player"></div>

@@ -154,11 +154,27 @@ app.get('/', function (req, res) {
     res.render('home', { layout: 'index' });
 });
 
-
-app.get('/login', function (req, res) {
+//Valido credenciales  con fetch y Select a la base
+app.put('/login', async (req, res) => {
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
-    res.render('login', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+   //Petición PUT con URL = "/login"
+
+    
+    console.log(req.body.pass)
+    console.log("Soy un pedido login PUT", null);
+    let respuesta = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE usuario = "${req.body.user}" AND contraseña = "${req.body.pass}"`)
+    if (respuesta.length > 0) {
+        console.log("Validado");
+        res.send({validar:true})
+    }
+    else{
+        console.log("NO Validado");
+        res.send({validar:false})    
+     }
+    
+    //res.render('login', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
+
 
 app.get('/registro', function (req, res) {
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
@@ -172,12 +188,16 @@ app.post('/registro', function (req, res) {
 
 app.post('/logueo', async (req, res) => {
     const col = req.body.usuario;
-
     console.log(col);
-
+    if (col == "admin") {
+      res.render('menuAdmin', { mensaje:"bienvenido", usuario: col});
+   }else{
+      res.render('menuUser', { mensaje:"bienvenido", usuario: col});
+   }
 
 }
 );
+
 
 function subir_audio(req, carpeta, isAudio, callback) {
     //Posibles respuestas de la función:
@@ -210,8 +230,6 @@ function subir_audio(req, carpeta, isAudio, callback) {
 
 app.get("/subir", (req, res) => {
 
-
-
     res.render('subir', null); //Si tengo que contestarle al front, lo hago aquí.
 
 })
@@ -241,6 +259,29 @@ app.post('/buscar', function (req, res) {
     res.render('buscar', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
+app.get('/buscar2', async function(req, res) {
+  //Obtengo todos los temas de la base 
+  let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas`)
+  console.log("Temas subidos", canciones)  
+  //Para hacer - Eenvio lista de Temas para mostrar
+  if (canciones.length > 0) {
+      const vector = []
+      for (var i = 0; i < canciones .length; i++) {
+          cadena= `${canciones[i].Nombre} / ${canciones[i].Artista}`
+          vector.push(cadena);
+      }
+//     const uno =  canciones.url
+    //  console.log(uno);
+  //       res.render('musica-subida', { mensaje:"bienvenido", usuario: uno});
+       res.render('musica-subida', { vector: vector}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+    } else {
+            console.log("No paso nada");
+            alert("No se pudo cargar la lista de canciones");
+    }
+  //res.send(cancionese)
+  //res.render('musica-subida', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
 
 app.post('/buscadorDeCanciones',async function (req, res) {
     console.log("Buscaron: ", req.body.buscador)
@@ -249,10 +290,34 @@ app.post('/buscadorDeCanciones',async function (req, res) {
     res.send(canciones)
 });
 
+
+app.get('/megusta', async function(req, res) {
+  //Obtengo todos los temas que me gustan (de la base)  
+  //let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas`)
+  let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas WHERE Megusta = 1`)
+  console.log("Temas que me gustan", canciones)  
+  if (canciones.length > 0) {
+    const vector = []
+    for (var i = 0; i < canciones .length; i++) {
+        cadena= `${canciones[i].Nombre} / ${canciones[i].Artista}`
+        vector.push(cadena);
+    }
+     res.render('megusta', { vector: vector}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+  } else {
+          console.log("No paso nada");
+          alert("No se pudo cargar la lista de canciones que te gustan");
+  }
+  //Para hacer - Eenvio lista de Temas para mostrar
+  //res.send(cancionese)
+  //res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+});
+
+//Asi es como estaba antes
 app.get('/megusta', function (req, res) {
   //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
   res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
+
 
 app.post('/megusta', function (req, res) {
   //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET

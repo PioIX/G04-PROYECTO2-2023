@@ -31,6 +31,14 @@ body {
 .form-section {
   background: rgb(38, 50, 56);
   background: linear-gradient(90deg, rgba(38, 50, 56, 1) 0%, rgba(38, 50, 64, 1) 50%, rgba(38, 50, 66, 1) 100%);
+
+  margin: 30px auto;
+  height: 90px;
+  width: 200px;
+  font-size:16px;   
+  color: blue; 
+
+
 }
 
 .information {
@@ -111,6 +119,16 @@ input[type=text] {
   border: 0;
   color: #41A5DD;
 }
+
+.div-3 {
+  background-color: rgb(201, 212, 228); 
+  height: 200px;
+  width: 200px;
+  font-size:30px;   
+  color: blue; 
+}
+
+
 
 .btn-registro {
   border-radius: 16px;
