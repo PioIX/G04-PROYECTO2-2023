@@ -32,14 +32,32 @@ body {
   background: rgb(38, 50, 56);
   background: linear-gradient(90deg, rgba(38, 50, 56, 1) 0%, rgba(38, 50, 64, 1) 50%, rgba(38, 50, 66, 1) 100%);
 
-  margin: 30px auto;
-  height: 90px;
-  width: 200px;
+  margin: 140px 170px;
+  height: 190px;
+  width: 220px;
   font-size:16px;   
   color: blue; 
 
 
 }
+
+.form-section-alert {
+  background: rgb(38, 50, 56);
+  background: linear-gradient(90deg, rgba(38, 50, 56, 1) 0%, rgba(38, 50, 64, 1) 50%, rgba(38, 50, 66, 1) 100%);
+
+  margin: 120px 520px;
+  height: 90px;
+  width: 300px;
+  font-size:16px;   
+  color: blue; 
+  align-items: center;
+
+
+}
+
+
+
+
 
 .information {
   margin: 90px 45px;
@@ -107,6 +125,7 @@ input[type=text] {
   box-shadow: 0;
   border: 0;
   color: #41A5DD;
+  margin: 15px 15px;
 }
 
 .btn-cancelar {
@@ -118,6 +137,8 @@ input[type=text] {
   box-shadow: 0;
   border: 0;
   color: #41A5DD;
+  align-items: center;
+  margin: 15px 15px;
 }
 
 .div-3 {
@@ -128,7 +149,15 @@ input[type=text] {
   color: blue; 
 }
 
-
+.div-4 {
+  
+  margin-left: 40%;
+  height: 90px;
+  width: 100px;
+  font-size:17px;   
+  color: blue; 
+  border-radius: 27px;
+}
 
 .btn-registro {
   border-radius: 16px;
@@ -139,4 +168,5 @@ input[type=text] {
   box-shadow: 0;
   border: 0;
   color: #41A5DD;
+  margin: 15px 15px;
 }

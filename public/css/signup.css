@@ -29,6 +29,9 @@
   }
   
   .form-section {
+
+    margin: 140px 170px;
+        
     width: 100%;
     background: rgb(38, 50, 56);
     background: linear-gradient(90deg, rgba(38, 50, 56, 1) 0%, rgba(38, 50, 64, 1) 50%, rgba(38, 50, 66, 1) 100%);

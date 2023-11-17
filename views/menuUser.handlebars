@@ -1,0 +1,456 @@
+<!-- TopBar -->
+			<div class="topbar">
+				<div class="container-arrows">
+					<div class="container-arrow-left">
+						<i class="fa-solid fa-chevron-left"></i>
+					</div>
+					<div class="container-arrow-right">
+						<i class="fa-solid fa-chevron-right"></i>
+					</div>
+				</div>
+				<div class="buttons-user">
+					<!--<a href="registro" class="btn-register">Registrarte</a> -->
+					<a class="btn-register"> Usuario: {{usuario}}</a>
+					<a href="/" class="btn-login btn-full">Cerrar sesión</a>
+				</div>
+			</div>
+			
+			<!-- SideBar -->
+			
+			<nav class="navbar">
+
+				
+				<div class="container-logo">
+					<a class="link-logo"><img src="/img/LOGO.png" width="225" height="98"></a>
+				</div>
+				<ul class="nav-main">
+					<li>
+						<a href="/"> <i class="fa-solid fa-house"></i>Inicio</a>
+					</li>
+					
+					<li>
+						<a href="buscar">
+							<i class="fa-solid fa-magnifying-glass"></i>Buscar</a
+						>
+					</li>
+					
+					<li>
+						<a href="buscar2"
+							><i class="fa-solid fa-music"></i></i>Musica Subida</a
+						>
+					</li>
+					
+
+						<div class="extra-options">
+				
+					<button onclick="irAMeGusta()" class="btn-favorite-songs">
+						<i class="fa-solid fa-heart"></i>
+						Canciones que te gustan
+					</button>
+				</div>
+
+				<div class="container-links">	
+					<button class="btn-subir" onclick="irASubir()">
+					<i class="fa-solid fa-arrow-up-from-bracket"></i><i class=""></i>
+				      SUBIR
+					</button>
+				</div>
+
+
+
+				</ul>
+			</div>
+
+		</nav>
+
+<section class="main-content">
+				<!-- 1 Fila -->
+				<div class="container-name-concentracion">
+					<h1 class="title-playlist">Albumes</h1>
+					<div class="container-card-concentracion">
+						<div class="card-concentracion" onclick="reproducirAlbum('album1')">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="/img/x100pre.jpg"
+										alt="album1"
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="/img/heroesvillians.jpg"
+										alt="album2"
+									/>
+								</div>
+								</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/jackboys.jpg"
+										alt="album3"
+									/>
+								</div>
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/saturno.jpg"
+										alt="album4"
+									/>
+								</div>
+								<!--<h2>Jazz Vibes</h2>
+								<p>The original chill instrumental beats playlist.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/scorpion.jpg"
+										alt="album5"
+									/>
+								</div>
+								<!--<h2>Focus Flow</h2>
+								<p>Uptempo instrumental hip hop beats.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/livelifefast.jpg"
+										alt="album6"
+									/>
+								</div>
+								<!--<h2>Workday Lounge</h2>
+								<p>Lounge and chill out music for your workday.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/llnm.jpg"
+										alt="album7"
+									/>
+								</div>
+								<!--<h2>Beats to think to</h2>
+								<p>Focus with deep techno and tech house.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/yhlqmdlg.jpg"
+										alt="album8"
+									/>
+								</div>
+								<!--<h2>Beats to think to</h2>
+								<p>Focus with deep techno and tech house.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/yeezus.jpg"
+										alt="album9"
+									/>
+								</div>
+								<!--<h2>Beats to think to</h2>
+								<p>Focus with deep techno and tech house.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/astroworld.jpg"
+										alt="album10"
+									/>
+								</div>
+								<!--<h2>Beats to think to</h2>
+								<p>Focus with deep techno and tech house.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/masterofpuppets.jpg"
+										alt="album11"
+									/>
+								</div>
+								<!--<h2>Beats to think to</h2>
+								<p>Focus with deep techno and tech house.</p>-->
+							</div>
+						</div>
+						<div class="card-concentracion">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/mrmorale.jpg"
+										alt="album12"
+									/>
+								</div>
+								<!--<h2>Beats to think to</h2>
+								<p>Focus with deep techno and tech house.</p>-->
+							</div>							
+						</div>																					
+					</div>
+				</div>
+
+<!-- 2 Fila -->
+				<div class="container-name-spotify-playlists">
+					<h1 class="title-playlist">
+						Playlists
+					</h1>
+
+					<div class="container-card-spotify-playlists">
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img src="img/playlist1.jpg" alt="playlist1">
+								</div>
+								<h2>Playlist 1</h2>
+								<!--<p>Miley Cyrus is on top of the Hottest 50!</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist2.jpg"
+										alt="playlist2"
+									/>
+								</div>
+								<h2>Todo Ingles</h2>
+								<!--<p>
+									New music from Metro Boomin, NLE Choppa and Rae
+									Sremmurd.
+								</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist3.jpg"
+										alt="playlist3"
+									/>
+								</div>
+								<h2>Todo Ingles 2</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist4.jpg"
+										alt="playlist4"
+									/>
+								</div>
+								<h2>playlist 4</h2>
+								<!--<p>
+									Rock legends & epic songs that continue to inspire
+									generations. Cover: Foo Fighters
+								</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist5.jpg"
+										alt="playlist5"
+									/>
+								</div>
+								<h2>2010</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist6.jpg"
+										alt="playlist6"
+									/>
+								</div>
+								<h2>Playlist 6</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist7.jpg"
+										alt="playlist7"
+									/>
+								</div>
+								<h2>Rock nacional</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist8.jpg"
+										alt="playlist8"
+									/>
+								</div>
+								<h2>RKT</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist9.jpg"
+										alt="playlist9"
+									/>
+								</div>
+								<h2>2K16 - 2K17</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist10.jpg"
+										alt="playlist10"
+									/>
+								</div>
+								<h2>Playlist 10</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist11.jpg"
+										alt="playlist11"
+									/>
+								</div>
+								<h2>Playlist 11</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+						<div class="card-spotify-playlists">
+							<div class="card">
+								<div class="card-img">
+									<img
+										src="img/playlist12.jpg"
+										alt="playlist12"
+									/>
+								</div>
+								<h2>Trap Argentino</h2>
+								<!--<p>The biggest songs of the 2010s.</p>-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Parte final  -->
+			<footer class="footer">
+				<div class="container-links-footer">
+					<div class="links-footer">
+						<h3>Creditos</h3>
+						<a>🔹 Ignacio Caamaño</a>
+						<a>🔹 Ignacio Lamalfa</a>
+						<a>🔹 Valentino Stachiotti</a>
+					</div>
+					<div class="links-footer">
+						<h3>Curso</h3>
+						<a>5°A Informatica</a>
+
+					</div>
+					<div class="links-footer">
+						<h3>Profesores</h3>
+						<a>🔸 Nicolas Facon</a>
+						<a>🔸 Martin Rivas</a>
+					</div>
+					
+
+
+
+				</div>
+			</footer>
+  <div class="nav-footer">
+            <div class="container-music">
+				<iframe id="player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" title="YouTube video player" width="640" height="360" src="https://www.youtube.com/embed/null?enablejsapi=1&amp;origin=http%3A%2F%2Flocalhost%3A3000&amp;widgetid=1" 
+				style="
+				z-index: 1;
+    			height: 100px;
+    			width: 200px;
+    			position: absolute;
+				left: 900px;
+   				bottom: 0px;
+    			right: 15px;"
+				></iframe>
+                <div class="song-rp">
+                    <img src="https://i.imgur.com/ziJH6Xg.jpg" alt="">
+                </div>
+            <div class="descr-song">
+        				<label for="">So Beautiful</label>
+       			 <div id="youtube-player"></div>
+                </div>
+                <div class="heart">
+                    <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path fill="none" d="M0 0h16v16H0z"></path>
+                        <path
+                            d="M13.797 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253c-.77.77-1.194 1.794-1.194 2.883s.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195a4.052 4.052 0 001.195-2.883 4.057 4.057 0 00-1.196-2.883z"
+                            fill="#00913f"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="repr">
+                <div class="timer">
+
+                </div>
+                <div class="return">
+                    <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"></path>
+                    </svg>
+                </div>
+                <div class="play">
+                    <svg id="play" role="img" height="16" width="16" viewBox="0 0 16 16"
+                        class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path d="M4.018 14L14.41 8 4.018 2z"></path>
+                    </svg>
+                    <svg id="stp" role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path fill="none" d="M0 0h16v16H0z"></path>
+                        <path d="M3 2h3v12H3zm7 0h3v12h-3z"></path>
+                    </svg>
+                </div>
+                <div class="next">
+                    <svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-sc-1bi12j5-0 gSLhUO">
+                        <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="player"></div>		
+			
+
+				
+
+
