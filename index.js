@@ -78,7 +78,7 @@ const firebaseConfig = {
     res.render("register");
   });
   
-  app.post("/register", async (req, res) => {
+  app.post("/registro", async (req, res) => {
     const { email, password } = req.body;
   
     try {
@@ -132,11 +132,13 @@ app.get('/', function (req, res) {
 
 app.post('/registro', async (req, res) => {
 
+   const dni = req.body.dni
     const nom = req.body.nombre;
+    const mail = req.body.mail;
     const usua = req.body.usuario;
     const ps = req.body.pass;
 
-    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${nom}", "${usua}", "${ps}")`)
+    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${req.body.mail}", "${req.body.usua}", "${req.body.nom}", "${req.body.dni}", "${req.body.ps}")`)
 
     if (dev == "1") {
 
@@ -147,7 +149,7 @@ app.post('/registro', async (req, res) => {
         console.log(dev);
         alert("No se pudo  registrar como usuario");
     }
-    //user.push(new User(req.body.DNI, req.body.nombre, req.body.usuario, req.body.contraseña))
+    user.push(new User(req.body.dni, req.body.mail, req.body.nom, req.body.usua, req.body.ps))
 });
 
 app.get('/', function (req, res) {
@@ -235,13 +237,16 @@ app.get("/subir", (req, res) => {
 })
 
 
-app.post("/subir", (req, res) => {
-    console.log(rta);
-    subir_audio(req, "subir/", false, function (rta) {
+app.post("/subir", async (req, res) => {
+  try {
+      const rta = await subir_audio(req, "subir/", false);
+      console.log(rta);
+      res.render('musica_subida', null);
+  }
+}
+)
 
-        res.render('home', null); //Si tengo que contestarle al front, lo hago aquí.
-    });
-})
+  ;
 
 app.post("/obtenerLink", async (req, res) => {
     let link = await MySQL.realizarQuery(`SELECT URL FROM Temas WHERE ID_Tema = "${req.body.tema}";`);

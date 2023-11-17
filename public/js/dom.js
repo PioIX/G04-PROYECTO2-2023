@@ -62,3 +62,20 @@ function irAMeGusta() {
 } else {
   player.playVideo();
 }
+
+
+function subir_audio (req, carpeta, isAudio, callback) {
+  return new Promise(async (resolve, reject) => {
+     
+
+      const insertQuery = "INSERT INTO Musica_subida (audio) VALUES ()";
+
+      try {
+          await query(insertQuery, [req.body.audio]);
+          resolve(file.name);
+      } catch (error) {
+          console.error('Error inserting data into the database:', error);
+          reject(error);
+      }
+  });
+}
