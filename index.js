@@ -74,25 +74,25 @@ const firebaseConfig = {
     res.render("home");
   });
   
-  app.get("/register", (req, res) => {
-    res.render("register");
+  app.get("/registro", (req, res) => {
+    res.render("registro");
   });
   
-  app.post("/registro", async (req, res) => {
+  /*app.post("/registro", async (req, res) => {
     const { email, password } = req.body;
   
     try {
       await authService.registerUser(auth, { email, password });
-      res.render("register", {
+      res.render("registro", {
         message: "Registro exitoso. Puedes iniciar sesión ahora.",
       });
     } catch (error) {
       console.error("Error en el registro:", error);
-      res.render("register", {
+      res.render("registro", {
         message: "Error en el registro: " + error.message,
       });
     }
-  });
+  });*/
   
   app.get("/login", (req, res) => {
     res.render("login");
@@ -138,9 +138,9 @@ app.post('/registro', async (req, res) => {
     const usua = req.body.usuario;
     const ps = req.body.pass;
 
-    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${req.body.mail}", "${req.body.usua}", "${req.body.nom}", "${req.body.dni}", "${req.body.ps}")`)
+    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${req.body.mail}", "${req.body.usuario}", "${req.body.nom}", "${req.body.dni}", "${req.body.pass}")`)
 
-    if (dev == "1") {
+    if (dev) {
 
         res.render('home', { mensaje: "Se ha registrado Exitosamente!!!" });
         //alert( " Bienvenido " + req.body.nombre + ", usted está registrado como usuario "  );
@@ -149,7 +149,7 @@ app.post('/registro', async (req, res) => {
         console.log(dev);
         alert("No se pudo  registrar como usuario");
     }
-    user.push(new User(req.body.dni, req.body.mail, req.body.nom, req.body.usua, req.body.ps))
+    user.push(new User(dni, mail, nom, usua, ps))
 });
 
 app.get('/', function (req, res) {
@@ -236,17 +236,21 @@ app.get("/subir", (req, res) => {
 
 })
 
-
 app.post("/subir", async (req, res) => {
   try {
-      const rta = await subir_audio(req, "subir/", false);
-      console.log(rta);
-      res.render('musica_subida', null);
+    const rta = await subir_audio(req, "subir/", false);
+    console.log(rta);
+    res.render('musica_subida', null);
+  } catch (error) {
+    // Handle the error appropriately, e.g., log it or send an error response.
+    console.error(error);
+    res.status(500).send('Internal Server Error');
   }
-}
-)
+});
 
-  ;
+
+
+  
 
 app.post("/obtenerLink", async (req, res) => {
     let link = await MySQL.realizarQuery(`SELECT URL FROM Temas WHERE ID_Tema = "${req.body.tema}";`);
