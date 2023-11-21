@@ -96,25 +96,25 @@ const firebaseConfig = {
     res.render("home");
   });
   
-  app.get("/register", (req, res) => {
-    res.render("register");
+  app.get("/registro", (req, res) => {
+    res.render("registro");
   });
   
-  app.post("/register", async (req, res) => {
+  /*app.post("/registro", async (req, res) => {
     const { email, password } = req.body;
   
     try {
       await authService.registerUser(auth, { email, password });
-      res.render("register", {
+      res.render("registro", {
         message: "Registro exitoso. Puedes iniciar sesión ahora.",
       });
     } catch (error) {
       console.error("Error en el registro:", error);
-      res.render("register", {
+      res.render("registro", {
         message: "Error en el registro: " + error.message,
       });
     }
-  });
+  });*/
   
 
   app.get("/logout", (req, res) => {
@@ -159,30 +159,50 @@ app.get('/', function (req, res) {
 
 
 
+<<<<<<< HEAD
 app.post('/registro', async (req, res)  => {
 
     const dni = req.body.dni; 
     const nom = req.body.nombre;
     const usua = req.body.nombre;
     const mail = req.body.mail;
+=======
+   const dni = req.body.dni
+    const nom = req.body.nombre;
+    const mail = req.body.mail;
+    const usua = req.body.usuario;
+>>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
     const ps = req.body.pass;
     
     const dev = await MySQL.realizarQuery(`INSERT INTO Usuarios ( dni, nombre, usuario, contraseña, mail) VALUES (  "${dni}","${nom}", "${usua}", "${ps}", "${mail}")`)
 
+<<<<<<< HEAD
     if ( dev.affectedRows == "1") {
 
         res.render('alert', { mensaje: "Se ha registrado Exitosamente!!!" });
         
+=======
+    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${req.body.mail}", "${req.body.usuario}", "${req.body.nom}", "${req.body.dni}", "${req.body.pass}")`)
+
+    if (dev) {
+
+        res.render('home', { mensaje: "Se ha registrado Exitosamente!!!" });
+>>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
         //alert( " Bienvenido " + req.body.nombre + ", usted está registrado como usuario "  );
     }
     else {
         console.log(dev);
         res.render('alert', {mensaje: "No se ha podido regregistrar"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
     }
+<<<<<<< HEAD
     //user.push(new User(req.body.DNI, req.body.nombre 
   });
 
 
+=======
+    user.push(new User(dni, mail, nom, usua, ps))
+});
+>>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
 
 app.get('/', function (req, res) {
     console.log(req.session.user)
@@ -282,6 +302,7 @@ app.get("/subir", (req, res) => {
 
 })
 
+<<<<<<< HEAD
 
  app.post("/subir", (req, res) => {
   subir_audio(req, "subir/", false, function (rta) {
@@ -327,6 +348,23 @@ app.post('/subir2', async (req, res)  => {
 
 
 //--------------------------------
+=======
+app.post("/subir", async (req, res) => {
+  try {
+    const rta = await subir_audio(req, "subir/", false);
+    console.log(rta);
+    res.render('musica_subida', null);
+  } catch (error) {
+    // Handle the error appropriately, e.g., log it or send an error response.
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+  
+>>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
 
 app.post("/obtenerLink", async (req, res) => {
     let link = await MySQL.realizarQuery(`SELECT URL FROM Canciones WHERE ID_Tema = "${req.body.tema}";`);

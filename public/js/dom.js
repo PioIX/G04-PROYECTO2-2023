@@ -2,6 +2,8 @@ function irASubir() {
   location.href = "/subir"
 }
 
+let player;
+
 function reproducirYoutube(url) {
   console.log(url)
   player = new YT.Player('player', {
@@ -24,7 +26,6 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
-var player;
 function onYouTubeIframeAPIReady() {
  
 }
@@ -57,8 +58,30 @@ function irAMeGusta() {
 }
 
  // Ejemplo: Pausar/Reproducir el video cuando se hace clic en el footer
- if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-  player.pauseVideo();
+ if (player && typeof player.getPlayerState === 'function') {
+  // Now you can safely call getPlayerState
+  if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+    player.pauseVideo();
+  } else {
+    player.playVideo();
+  }
 } else {
-  player.playVideo();
+  console.log('Player is not properly initialized.');
+}
+
+
+function subir_audio (req, carpeta, isAudio, callback) {
+  return new Promise(async (resolve, reject) => {
+     
+
+      const insertQuery = "INSERT INTO Musica_subida (audio) VALUES ()";
+
+      try {
+          await query(insertQuery, [req.body.audio]);
+          resolve(file.name);
+      } catch (error) {
+          console.error('Error inserting data into the database:', error);
+          reject(error);
+      }
+  });
 }
