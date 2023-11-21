@@ -10,6 +10,9 @@
     Revisión 1 - Año 2021
 */
 //Cargo librerías instaladas y necesarias
+
+
+
 const express = require('express'); //Para el manejo del servidor Web
 const exphbs = require('express-handlebars'); //Para el manejo de los HTML
 const bodyParser = require('body-parser'); //Para el manejo de los strings JSON
@@ -26,22 +29,31 @@ const {
   GoogleAuthProvider,
 } = require("firebase/auth");
 
+let alert = require('alert'); 
 
+var session = require("express-session");
 
 app.use(express.static('public')); //Expongo al lado cliente la carpeta "public"
 
 app.use(bodyParser.urlencoded({ extended: false })); //Inicializo el parser JSON
 app.use(bodyParser.json());
 
+app.use(session({
+    secret: "123kjgrioegj34ij"
+}));
+
+
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' })); //Inicializo Handlebars. Utilizo como base el layout "Main".
 app.set('view engine', 'handlebars'); //Inicializo Handlebars
 app.use(fileUpload());
 
-const Listen_Port = 3000; //Puerto por el que estoy ejecutando la página Web
+const Listen_Port = 3100; //Puerto por el que estoy ejecutando la página Web
 
 app.listen(Listen_Port, function () {
     console.log('Servidor NodeJS corriendo en http://localhost:' + Listen_Port + '/');
 });
+
 
 /*
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
@@ -54,6 +66,14 @@ app.listen(Listen_Port, function () {
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
     A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
 */
+
+
+function selectOpt(index){
+  alert("CORRECTO");
+}
+
+
+
 // Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyA936j4rOJbIGAiPMENWJAMbIAeCULI8J8",
@@ -69,8 +89,10 @@ const firebaseConfig = {
   
   // Importar AuthService
   const authService = require("./authService");
+
   
   app.get("/", (req, res) => {
+   // console.log(req.session.user)
     res.render("home");
   });
   
@@ -94,6 +116,12 @@ const firebaseConfig = {
     }
   });
   
+
+  app.get("/logout", (req, res) => {
+    req.session.user = null;
+    res.render("home");
+  });
+
   app.get("/login", (req, res) => {
     res.render("login");
   });
@@ -130,27 +158,34 @@ app.get('/', function (req, res) {
 });
 
 
-app.post('/registro', async (req, res) => {
 
+app.post('/registro', async (req, res)  => {
+
+    const dni = req.body.dni; 
     const nom = req.body.nombre;
-    const usua = req.body.usuario;
+    const usua = req.body.nombre;
+    const mail = req.body.mail;
     const ps = req.body.pass;
+    
+    const dev = await MySQL.realizarQuery(`INSERT INTO Usuarios ( dni, nombre, usuario, contraseña, mail) VALUES (  "${dni}","${nom}", "${usua}", "${ps}", "${mail}")`)
 
-    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${nom}", "${usua}", "${ps}")`)
+    if ( dev.affectedRows == "1") {
 
-    if (dev == "1") {
-
-        res.render('home', { mensaje: "Se ha registrado Exitosamente!!!" });
+        res.render('alert', { mensaje: "Se ha registrado Exitosamente!!!" });
+        
         //alert( " Bienvenido " + req.body.nombre + ", usted está registrado como usuario "  );
     }
     else {
         console.log(dev);
-        alert("No se pudo  registrar como usuario");
+        res.render('alert', {mensaje: "No se ha podido regregistrar"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
     }
-    //user.push(new User(req.body.DNI, req.body.nombre, req.body.usuario, req.body.contraseña))
-});
+    //user.push(new User(req.body.DNI, req.body.nombre 
+  });
+
+
 
 app.get('/', function (req, res) {
+    console.log(req.session.user)
     res.render('home', { layout: 'index' });
 });
 
@@ -165,6 +200,10 @@ app.put('/login', async (req, res) => {
     let respuesta = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE usuario = "${req.body.user}" AND contraseña = "${req.body.pass}"`)
     if (respuesta.length > 0) {
         console.log("Validado");
+
+        //Grabo el usuario en la sesion
+        req.session.user = req.body.user;
+        
         res.send({validar:true})
     }
     else{
@@ -230,28 +269,83 @@ function subir_audio(req, carpeta, isAudio, callback) {
 
 app.get("/subir", (req, res) => {
 
-    res.render('subir', null); //Si tengo que contestarle al front, lo hago aquí.
+  if (req.session.user != null ) {
+
+     res.render('subir2', null); //Si tengo que contestarle al front, lo hago aquí.
+
+    } else {
+      console.log("No esta logueado");
+      //alert("No esta logueado para esta acción");
+      res.render('alert', {mensaje: "No de ha podido loguear!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+      
+}   
 
 })
 
 
-app.post("/subir", (req, res) => {
-    console.log(rta);
-    subir_audio(req, "subir/", false, function (rta) {
+ app.post("/subir", (req, res) => {
+  subir_audio(req, "subir/", false, function (rta) {
+      console.log(rta); // Now rta is defined within this callback function
+      res.render('home', null);
+  });
+});
+//-----------------------------
+//NUEVO METODO PARA SUBIR
+//-----------------------------
 
-        res.render('home', null); //Si tengo que contestarle al front, lo hago aquí.
-    });
-})
+app.post('/subir2', async (req, res)  => {
+
+  const temaNombre = req.body.temaNombre; 
+  const temaArtista = req.body.temaArtista;
+  const temaDuracion = req.body.temaDuracion;
+  const temaUrl = req.body.temaUrl;
+  const usuario = req.session.user;
+  
+  const dev = await MySQL.realizarQuery(`INSERT INTO Canciones ( nombre, artista, duracion, url) VALUES (  "${temaNombre}","${temaArtista}", "${temaDuracion}", "${temaUrl}")`)
+
+  if ( dev.affectedRows == "1") {
+
+    const dev2 = await MySQL.realizarQuery(`INSERT INTO CancionesPorUsuario ( URL, Nombre_Usuario, Megusta) VALUES (  "${temaUrl}","${usuario}", 0)`)
+
+    if ( dev2.affectedRows == "1") {
+
+
+      res.render('alert', { mensaje: "Se ha Subido Exitosamente!!!" });
+      
+      //alert( " Bienvenido " + req.body.nombre + ", usted está registrado como usuario "  );
+    }
+  }
+  else {
+      console.log(dev);
+      res.render('alert', {mensaje: "No se ha podido regregistrar"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+  }
+  //user.push(new User(req.body.DNI, req.body.nombre 
+});
+
+
+
+
+
+//--------------------------------
 
 app.post("/obtenerLink", async (req, res) => {
-    let link = await MySQL.realizarQuery(`SELECT URL FROM Temas WHERE ID_Tema = "${req.body.tema}";`);
+    let link = await MySQL.realizarQuery(`SELECT URL FROM Canciones WHERE ID_Tema = "${req.body.tema}";`);
     res.send({ url: link })
 })
 //await MySQL.realizarSelect(`SELECT   FROM Temas (ID_Tema, nombre, artista, duracion) VALUES ("${idt}",  "${nomt}", "${art}", "${dur}")`) 
 
 app.get('/buscar', function (req, res) {
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
-    res.render('buscar', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+  
+    if (req.session.user != null ) {
+      console.log("Esta logueado");
+      res.render('buscar', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+    } else {
+            console.log("No esta logueado");
+            //alert("No esta logueado para esta acción");
+            res.render('alert', {mensaje: "Debe estar Logueado!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+    }
+   
 });
 
 app.post('/buscar', function (req, res) {
@@ -260,41 +354,58 @@ app.post('/buscar', function (req, res) {
 });
 
 app.get('/buscar2', async function(req, res) {
-  //Obtengo todos los temas de la base 
-  let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas`)
-  console.log("Temas subidos", canciones)  
-  //Para hacer - Eenvio lista de Temas para mostrar
-  if (canciones.length > 0) {
-      const vector = []
-      for (var i = 0; i < canciones .length; i++) {
-          cadena= `${canciones[i].Nombre} / ${canciones[i].Artista}`
-          vector.push(cadena);
-      }
-//     const uno =  canciones.url
-    //  console.log(uno);
-  //       res.render('musica-subida', { mensaje:"bienvenido", usuario: uno});
-       res.render('musica-subida', { vector: vector}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
-    } else {
-            console.log("No paso nada");
-            alert("No se pudo cargar la lista de canciones");
-    }
-  //res.send(cancionese)
-  //res.render('musica-subida', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+
+//Controlo si esta logueado en sesion
+if (req.session.user != null ) {
+ 
+
+    const usuario = req.session.user; 
+   //Obtengo todos los temas de la base 
+   let canciones = await MySQL.realizarQuery(`SELECT c.Nombre, c.Artista, c.ID_Tema FROM Canciones c , CancionesPorUsuario cu , Usuarios u WHERE cu.Nombre_usuario = u.Nombre AND c.URL = cu.URL AND u.Usuario =  "${usuario}";`)
+   console.log("Temas subidos", canciones)  
+   //Para hacer - Eenvio lista de Temas para mostrar
+   if (canciones.length > 0) {
+       const vector = []
+       for (var i = 0; i < canciones .length; i++) {
+           cadena= `${canciones[i].Nombre} / ${canciones[i].Artista}`
+           vector.push(cadena);
+       }
+ //     const uno =  canciones.url
+     //  console.log(uno);
+   //       res.render('musica-subida', { mensaje:"bienvenido", usuario: uno});
+        res.render('musica-subida', { vector: vector}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+     } else {
+             console.log("No paso nada");
+             res.render('alert', {mensaje: "No pudo cargar Canciones"});
+     }
+
+} else {
+        console.log("No esta logueado");
+        //alert("No esta logueado para esta acción");
+        res.render('alert', {mensaje: "Debe estar Logueado!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+}
+
 });
 
 
 app.post('/buscadorDeCanciones',async function (req, res) {
     console.log("Buscaron: ", req.body.buscador)
 
-    let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas WHERE Nombre LIKE "%${req.body.buscador}%"; `)
+    let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Canciones WHERE Nombre LIKE "%${req.body.buscador}%"; `)
     res.send(canciones)
 });
 
 
 app.get('/megusta', async function(req, res) {
+
+//Controlo si esta logueado en sesion
+if (req.session.user != null ) {
+ 
+  const usuario = req.session.user;
   //Obtengo todos los temas que me gustan (de la base)  
   //let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas`)
-  let canciones = await MySQL.realizarQuery(`SELECT Nombre, Artista, ID_Tema FROM Temas WHERE Megusta = 1`)
+  let canciones = await MySQL.realizarQuery(`SELECT c.Nombre, c.Artista, c.ID_Tema FROM Canciones c , CancionesPorUsuario cu , Usuarios u WHERE cu.Nombre_usuario = u.Nombre AND c.URL = cu.URL AND u.Usuario =  "${usuario}" AND cu.Megusta = 1 ;`)
+  
   console.log("Temas que me gustan", canciones)  
   if (canciones.length > 0) {
     const vector = []
@@ -305,8 +416,15 @@ app.get('/megusta', async function(req, res) {
      res.render('megusta', { vector: vector}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
   } else {
           console.log("No paso nada");
-          alert("No se pudo cargar la lista de canciones que te gustan");
+          res.render('alert', {mensaje: "No pudo cargar Canciones!!!"});
   }
+
+} else {
+  console.log("No esta logueado");
+  //alert("No esta logueado para esta acción");
+  res.render('alert', {mensaje: "Debe estar Logueado!!!"});//Renderizo página "home" sin pasar ningún objeto a Handlebars
+}
+
   //Para hacer - Eenvio lista de Temas para mostrar
   //res.send(cancionese)
   //res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
@@ -323,3 +441,4 @@ app.post('/megusta', function (req, res) {
   //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
   res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
+

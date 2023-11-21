@@ -23,6 +23,20 @@
     height: 90vh;
   }
   
+
+  .a {
+    border-radius: 16px;
+    padding: 4px 12px;
+    background: rgb(184, 79, 79);
+    font-size: 1.1em;
+    font-weight: 600;
+    box-shadow: 0;
+    border: 0;
+    color: #e1e8ec;
+  }
+
+
+
   .detail-section {
     background: rgb(0, 205, 89);
     background: linear-gradient(90deg, rgba(0, 205, 89, 1) 0%, rgba(0, 205, 112, 1) 57%, rgba(0, 205, 144, 1) 100%);

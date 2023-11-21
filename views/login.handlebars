@@ -1,13 +1,50 @@
+
+<body>
+  <div class="fluid-container">
+    <div class="container"> 
+        <div class="form-section">
+          <div class="form-conatiner">
+            <h2 class="heading__h2"></i>Unison</h2>
+            <br><br>  
+            <p class="links__p"><a>Login de Usuario</a>
+
+           <form action="/logueo" method="POST" id="form1" class="container-sm">    
+             <input type="text" class="input" id="usuarioId" name="usuario" value="" placeholder="Usuario">
+              <input type="password" class="input" id="passwordId" name="password" placeholder="Contraseña">
+               <div>
+                   <!-- <input type="button" onclick="miFunc()" class="btn-registrar" value="Ingresar"> -->
+                   <input type="submit" onclick="miFunc()" class="btn-registrar" value="Ingresar">
+              </div>
+           </form>
+           <a href="/registro" class="btn-cancelar">Registro</a>
+           <a href="/" class="btn-cancelar">Inicio</a>
+          </div>
+      </div>
+    </div>
+  </div>
+<link rel="stylesheet" type="text/css" href="/css/signup.css" />
+
+<script src="index.js">
+
+
+</script>
+</body> 
+
+
+
+ <!--
+ 
  <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Login</title>
         <meta charset="utf-8"> 
 		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-       <link rel="stylesheet" href="/public/css/login.css">   
+          <link rel="stylesheet" href="/public/css/login.css">   
 	
     </head>
 <body>
+
 
   <div class="fluid-container">
     <div class="container" "with = 1100px" "heigt = 1100px"> 
@@ -26,6 +63,10 @@
        </div>
     </div>
  </div>
+
+
+-->
+
 
 <script>
   function miFunc() {
@@ -78,35 +119,10 @@ function login() {
 }
 
 </script>
-<link rel="stylesheet" type="text/css" href="/css/login.css" />
+ <!--  <link rel="stylesheet" type="text/css" href="/css/login.css" />   --> 
 
-<script src="index.js"></script>
+<script src="index.js"></script>  
 
 </body>
 
 </html>  
-
-<!--
- login.handlebars 
-<h1>Iniciar sesión</h1>
-<form action="/login" method="post">
-  <input type="email" name="email" placeholder="Correo electrónico" required />
-  <input type="password" name="password" placeholder="Contraseña" required />
-  <button type="submit">Iniciar sesión</button>
-</form>
-<div>{{message}}</div>
--->
-
-<!--
-login.handlebars
- <h1>Iniciar sesión</h1>
-      <form action="/logueo" method="POST" id="form1" class="form-section">    
-        <input type="text" class="input" id="usuarioId" name="usuario" value="" placeholder="Usuario">
-        <input type="password" class="input" id="passwordId" name="password" placeholder="Contraseña">
-        <div>
-          <input type="button" onclick="miFunc()" class="btn-login" value="Ingresar">
-        </div>
-       </form>
-       <a href="/registro" class="btn-registro">Registro</a>
-       <a href="/" class="btn-cancelar">Inicio</a>
--->

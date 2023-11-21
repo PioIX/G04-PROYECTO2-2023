@@ -7,11 +7,22 @@
 						<div class="card-concentracion" onclick="reproducirAlbum('album1')">
 							<div class="card">
 								<div class="links-footer">
-								<ul>
-             						{{#each vector}}
-                      				<li> <a>{{this}} </a>  </li>
-             						{{/each}}
-          							</ul>
+							
+                                    <div class="card-concentracion" onclick="reproducir('album1')"></div>
+                            	        <ul>
+             				        		{{#each vector}}
+            
+                                            <form action="/buscadorDeCanciones" method="POST" id="form1" class="container-sm">    
+                      	        		    	<li> <a>{{this}} </a>  </li>
+                                                <div>
+                                                    <input type="submit"  class="btn-registrar" value="Reproducir">
+
+                                              </div>
+                                            </form>
+
+             		        				{{/each}}
+          			    				</ul>
+                                   </div>
 								</div>
 							</div>
 						</div>
