@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false })); //Inicializo el parser JSON
 app.use(bodyParser.json());
 
 app.use(session({
-    secret: "123kjgrioegj34ij"
+    secret: "123kjgrioeg34ij"
 }));
 
 
@@ -127,22 +127,13 @@ const firebaseConfig = {
   });
   
   app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      const userCredential = await authService.loginUser(auth, {
-        email,
-        password,
-      });
-      // Aquí puedes redirigir al usuario a la página que desees después del inicio de sesión exitoso
-      res.redirect("/dashboard");
-    } catch (error) {
-      console.error("Error en el inicio de sesión:", error);
-      res.render("login", {
-        message: "Error en el inicio de sesión: " + error.message,
-      });
-    }
-  });
+    
+    req.session.user = req.body.usuario;
+    res.render("home");
+
+
+   });
+   
   
   app.get("/dashboard", (req, res) => {
     // Agrega aquí la lógica para mostrar la página del dashboard
@@ -159,50 +150,32 @@ app.get('/', function (req, res) {
 
 
 
-<<<<<<< HEAD
+
 app.post('/registro', async (req, res)  => {
 
     const dni = req.body.dni; 
     const nom = req.body.nombre;
     const usua = req.body.nombre;
     const mail = req.body.mail;
-=======
-   const dni = req.body.dni
-    const nom = req.body.nombre;
-    const mail = req.body.mail;
-    const usua = req.body.usuario;
->>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
+ 
     const ps = req.body.pass;
     
     const dev = await MySQL.realizarQuery(`INSERT INTO Usuarios ( dni, nombre, usuario, contraseña, mail) VALUES (  "${dni}","${nom}", "${usua}", "${ps}", "${mail}")`)
 
-<<<<<<< HEAD
     if ( dev.affectedRows == "1") {
 
         res.render('alert', { mensaje: "Se ha registrado Exitosamente!!!" });
-        
-=======
-    const dev = await MySQL.realizarInsert(`INSERT INTO Usuarios ( nombre, usuario, contraseña) VALUES (  "${req.body.mail}", "${req.body.usuario}", "${req.body.nom}", "${req.body.dni}", "${req.body.pass}")`)
 
-    if (dev) {
-
-        res.render('home', { mensaje: "Se ha registrado Exitosamente!!!" });
->>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
-        //alert( " Bienvenido " + req.body.nombre + ", usted está registrado como usuario "  );
     }
     else {
         console.log(dev);
         res.render('alert', {mensaje: "No se ha podido regregistrar"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
     }
-<<<<<<< HEAD
-    //user.push(new User(req.body.DNI, req.body.nombre 
-  });
 
 
-=======
     user.push(new User(dni, mail, nom, usua, ps))
 });
->>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
+
 
 app.get('/', function (req, res) {
     console.log(req.session.user)
@@ -246,6 +219,7 @@ app.post('/registro', function (req, res) {
 });
 
 app.post('/logueo', async (req, res) => {
+  req.session.user = req.body.usuario;
     const col = req.body.usuario;
     console.log(col);
     if (col == "admin") {
@@ -296,13 +270,10 @@ app.get("/subir", (req, res) => {
     } else {
       console.log("No esta logueado");
       //alert("No esta logueado para esta acción");
-      res.render('alert', {mensaje: "No de ha podido loguear!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
-      
-}   
+      res.render('alert', {mensaje: "Debe estar Logueado!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+    }
+});
 
-})
-
-<<<<<<< HEAD
 
  app.post("/subir", (req, res) => {
   subir_audio(req, "subir/", false, function (rta) {
@@ -338,7 +309,7 @@ app.post('/subir2', async (req, res)  => {
   }
   else {
       console.log(dev);
-      res.render('alert', {mensaje: "No se ha podido regregistrar"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+      res.render('alert', {mensaje: "No se ha podido subir"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
   }
   //user.push(new User(req.body.DNI, req.body.nombre 
 });
@@ -348,7 +319,7 @@ app.post('/subir2', async (req, res)  => {
 
 
 //--------------------------------
-=======
+
 app.post("/subir", async (req, res) => {
   try {
     const rta = await subir_audio(req, "subir/", false);
@@ -361,10 +332,8 @@ app.post("/subir", async (req, res) => {
   }
 });
 
-
-
   
->>>>>>> 51d3c1483f0fe799a671acd174ac9ba1f58a172b
+
 
 app.post("/obtenerLink", async (req, res) => {
     let link = await MySQL.realizarQuery(`SELECT URL FROM Canciones WHERE ID_Tema = "${req.body.tema}";`);
@@ -418,7 +387,8 @@ if (req.session.user != null ) {
      }
 
 } else {
-        console.log("No esta logueado");
+        
+  console.log("No esta logueado");
         //alert("No esta logueado para esta acción");
         res.render('alert', {mensaje: "Debe estar Logueado!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 }

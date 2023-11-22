@@ -2,7 +2,7 @@
 			<section class="main-content">
 				<!-- 1 Fila -->
 				<div class="container-name-concentracion">
-					<h1 class="title-playlist">Canciones</h1>
+   		     	      <h1 class="title-playlist">Canciones</h1>
 					<div class="container-card-concentracion">
 						<div class="card-concentracion" onclick="reproducirAlbum('album1')">
 							<div class="card">
@@ -11,14 +11,8 @@
                                     <div class="card-concentracion" onclick="reproducir('album1')"></div>
                             	        <ul>
              				        		{{#each vector}}
-            
-                                            <form action="/buscadorDeCanciones" method="POST" id="form1" class="container-sm">    
-                      	        		    	<li> <a>{{this}} </a>  </li>
-                                                <div>
-                                                    <input type="submit"  class="btn-registrar" value="Reproducir">
-
-                                              </div>
-                                            </form>
+                                                 
+                                           <li> <a>{{this}} </a>  </li>
 
              		        				{{/each}}
           			    				</ul>
@@ -28,6 +22,9 @@
 						</div>
 					</div>
 				</div>
+
+
+
 
 			<!-- Parte final  -->
 		
