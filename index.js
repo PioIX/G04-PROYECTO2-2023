@@ -173,7 +173,7 @@ app.post('/registro', async (req, res)  => {
     }
 
 
-    user.push(new User(dni, mail, nom, usua, ps))
+   // user.push(new User(dni, mail, nom, usua, ps))
 });
 
 
@@ -363,10 +363,14 @@ app.post('/buscar', function (req, res) {
 app.get('/buscar2', async function(req, res) {
 
 //Controlo si esta logueado en sesion
-if (req.session.user != null ) {
- 
+if (req.session.user == null ) {
 
-    const usuario = req.session.user; 
+    console.log("No esta logueado");
+    res.render('alert', {mensaje: "Debe estar Logueado!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+} else {
+        
+ 
+   const usuario = req.session.user; 
    //Obtengo todos los temas de la base 
    let canciones = await MySQL.realizarQuery(`SELECT c.Nombre, c.Artista, c.ID_Tema FROM Canciones c , CancionesPorUsuario cu , Usuarios u WHERE cu.Nombre_usuario = u.Nombre AND c.URL = cu.URL AND u.Usuario =  "${usuario}";`)
    console.log("Temas subidos", canciones)  
@@ -386,11 +390,6 @@ if (req.session.user != null ) {
              res.render('alert', {mensaje: "No pudo cargar Canciones"});
      }
 
-} else {
-        
-  console.log("No esta logueado");
-        //alert("No esta logueado para esta acción");
-        res.render('alert', {mensaje: "Debe estar Logueado!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 }
 
 });
