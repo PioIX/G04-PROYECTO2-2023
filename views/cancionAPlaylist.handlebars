@@ -1,0 +1,61 @@
+<!-- Contenido Principal -->
+			<section class="main-content"> 
+				<!-- 1 Fila -->
+				<div class="container-name-concentracion">
+   		     	      <h1 class="title-playlist">Lista de Canciones</h1>
+                     <h1 class="title-playlist">ID       /  Nombre</h1>
+					      <div class="container-card-concentracion">
+						         <div class="card-concentracion" onclick="reproducirAlbum('album1')">
+							            <div class="card">
+								               <div class="links-footer">
+                                             <div class="card-concentracion" onclick="reproducir('album1')"></div>
+                            	                 <ul>
+             				        		             {{#each vector}}
+                                                 
+                                                      <li> <a>{{this}} </a>  </li>
+
+             		        			            	{{/each}}
+          			    				             </ul>
+                                            </div>
+								                </div>
+							            </div>
+						         </div>
+					       </div>
+            </div>
+         
+         </section>
+         <section class="main-content">
+                  <div class="main-section">
+                     <h1 class="title-playlist">Seleccionar Id de canción para subir a Playlist</h1>
+                     <div>
+                           <form action="/addToPlaylist" method="POST" id="form1" class="container-sm">    
+                                <div class="mb-3 form-group">
+                                    <label for="cancionId" class="form-control"> Ingrese el Id de la canción que desea agregar</label> 
+                                    <input type="number" class="form-control" id="cancionId" name="cancionId" value="" placeholder="ID de Canción">
+                                    <label for="playlist" class="form-control"> Ingrese el Nombre de la Playlist</label> 
+                                    <input type="text" class="form-control" id="playlist" name="playlist" value="" placeholder="Nombre de Playlist">
+                                    <button  class="btn-registrawr" type="submit">Subir canción</button> 
+                                    <a href="/" class="btn-registrar">Salir</a>
+                                 </div>    
+                           </form>
+                     </div>
+			         </div>
+         </section>
+
+			<!-- Parte final  -->
+	
+  
+<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+<script>
+	$(document).ready(function() {
+		$('#Temas').Datatable({
+
+		});
+
+	});
+
+</script>
+
+
+
+

@@ -1,0 +1,62 @@
+<!-- Contenido Principal -->
+			<section class="main-content"> 
+				<!-- 1 Fila -->
+				<div class="container-name-concentracion">
+   		     	      <h1 class="title-playlist">Lista de Canciones</h1>
+                     <h1 class="title-playlist">ID       /  Nombre</h1>
+					      <div class="container-card-concentracion">
+						         <div class="card-concentracion" onclick="reproducirAlbum('album1')">
+							            <div class="card">
+								               <div class="links-footer">
+                                             <div class="card-concentracion" onclick="reproducir('album1')"></div>
+                            	                 <ul>
+             				        		             {{#each vector}}
+                                                 
+                                                      <li> <a>{{this}} </a>  </li>
+
+             		        			            	{{/each}}
+          			    				             </ul>
+                                            </div>
+								                </div>
+							            </div>
+						         </div>
+					       </div>
+            </div>
+         
+         </section>
+         <section class="main-content">
+                  <div>
+                     <h1 class="title-playlist">Seleccionar Id de canción</h1>
+                     <div>
+                           <form action="/borrarCancion" method="POST" id="form1" class="container-sm">    
+                            
+                                <div class="mb-3 form-group">
+                                    <label for="cancionId" class="form-control"> Ingrese el Id de la canción que desea eliminar</label> 
+                                    <input type="number" class="form-control" id="cancionId" name="cancionId" value="" placeholder="ID de Canción">
+                                 </div>
+                                 <div>
+                                    <button  class="btn-registrar" type="submit">Eliminar canción</button> 
+                                    <a href="/" class="btn-registrar">Salir</a>
+                                 </div>    
+                           </form>
+                     </div>
+			         </div>
+         </section>
+
+			<!-- Parte final  -->
+	
+  
+<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+<script>
+	$(document).ready(function() {
+		$('#Temas').Datatable({
+
+		});
+
+	});
+
+</script>
+
+
+
+

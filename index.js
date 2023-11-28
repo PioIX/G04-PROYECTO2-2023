@@ -135,6 +135,12 @@ const firebaseConfig = {
    });
    
   
+   app.get("/menuAdmin", (req, res) => {
+    res.render("menuAdmin");
+  });
+
+
+
   app.get("/dashboard", (req, res) => {
     // Agrega aquí la lógica para mostrar la página del dashboard
     res.render("dashboard");
@@ -196,7 +202,16 @@ app.put('/login', async (req, res) => {
 
         //Grabo el usuario en la sesion
         req.session.user = req.body.user;
-        
+      
+        const col = req.body.user;
+        console.log(col);
+        if (col == "admin") {
+          res.render('menuUser', { mensaje:"bienvenido", usuario: col});
+       }else{
+          res.render('menuUser', { mensaje:"bienvenido", usuario: col});
+       }
+    
+
         res.send({validar:true})
     }
     else{
@@ -218,12 +233,36 @@ app.post('/registro', function (req, res) {
     res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
+//------------------------------------------------
+app.get('/crearPlaylist', function (req, res) {
+  res.render('crearPlayList', null); 
+});
+//------------------------------------------------
+app.post('/creoPlayList', async (req, res)  => {
+
+  const nom = req.body.nombre;
+  const cant = "";
+  const url= "";
+    
+  const dev = await MySQL.realizarQuery(`INSERT INTO Playlist ( nombre, cantidad, URL) VALUES (  "${nom}","${cant}","${url}")`)
+
+  if ( dev.affectedRows == "1") {
+      res.render('alert', { mensaje: "Se ha creado!!!" });
+  }
+  else {
+      console.log(dev);
+      res.render('alert', {mensaje: "No se ha podido Crear"});
+  }
+
+});
+//------------------------------------------------------
+
 app.post('/logueo', async (req, res) => {
   req.session.user = req.body.usuario;
     const col = req.body.usuario;
     console.log(col);
     if (col == "admin") {
-      res.render('menuAdmin', { mensaje:"bienvenido", usuario: col});
+      res.render('menuUser', { mensaje:"bienvenido", usuario: col});
    }else{
       res.render('menuUser', { mensaje:"bienvenido", usuario: col});
    }
@@ -393,7 +432,38 @@ if (req.session.user == null ) {
 }
 
 });
-
+//-------------------------------------------------------------------
+//Listamos Playists
+//--------------------------------------
+app.get('/verPlaylists', async function(req, res) {
+  //Controlo si esta logueado en sesion
+  if (req.session.user == null ) {
+      console.log("No esta logueado");
+      res.render('alert', {mensaje: "Debe estar Logueado!!!"}); 
+  } else {
+     const usuario = req.session.user; 
+     //Obtengo todos los temas de la base 
+     let canciones = await MySQL.realizarQuery(`SELECT pl.nombre play, c.Nombre cancion FROM Temas_Playlist tp, Canciones c, Playlist pl WHERE tp.ID_tema = c.ID_Tema AND tp.ID_Playlist = pl.ID_Playlist ORDER BY pl.nombre;`)
+     //Para hacer - Eenvio lista de Temas para mostrar
+     if (canciones.length > 0) {
+         const vector = []
+         playAnterior = "1";  
+         for (var i = 0; i < canciones .length; i++) {
+              if (canciones[i].play == playAnterior) {
+                cadena= `${".............."} / ${canciones[i].cancion}`   
+              } else {
+                cadena= `${canciones[i].play} / ${canciones[i].cancion}`
+                playAnterior = canciones[i].play;
+              }
+             vector.push(cadena);
+         }
+             res.render('playlists', { vector: vector}); 
+       } else {
+               res.render('alert', {mensaje: "No pudo cargar Playlists"});
+       }
+  }
+  });
+//--------------------------------------------------------------------
 
 app.post('/buscadorDeCanciones',async function (req, res) {
     console.log("Buscaron: ", req.body.buscador)
@@ -449,3 +519,193 @@ app.post('/megusta', function (req, res) {
   res.render('megusta', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
+//---------------------------------
+//Listar y borrar canciones subidas
+//---------------------------------
+
+app.get('/bajaCanciones', async function(req, res) {
+  if (req.session.user != "admin" ) {
+
+
+    console.log("No esta logueado");
+    res.render('alert', {mensaje: "Debe estar Logueado como Administrador!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+} else {
+
+  let paqueteDeCanciones = await MySQL.realizarQuery(`SELECT * FROM Canciones`)
+ 
+    if (paqueteDeCanciones.length > 0) {
+      const vector = [] 
+ 
+       for (var i = 0; i < paqueteDeCanciones.length; i++) {      
+         cadena= `${paqueteDeCanciones[i].ID_Tema} / ${paqueteDeCanciones[i].Nombre}`
+         vector.push(cadena); 
+       }
+  
+    // res.render('menuAdmin', { mensaje:"bienvenido", usuario: col});
+   // res.render('mainAdmin', { vector: vector  });
+     res.render('bajaCancion', { vector: vector  });
+   }else{
+     alert("No se pudo cargar las canciones");
+   }
+  } 
+ });
+
+//----------------------------------------------------
+app.post('/borrarCancion', async function(req, res) {
+
+  const id = req.body.cancionId;
+  //Elimino la cancion por id ingresado  
+  await MySQL.realizarQuery(`DELETE FROM Canciones WHERE ID_Tema = "${id}"`)
+
+  //Listo Pido la lista de preguntas para actualizar la vista 
+  let paqueteDeCanciones = await MySQL.realizarQuery(`SELECT * FROM Canciones`)
+  
+  if (paqueteDeCanciones.length > 0) {
+    const vector = [] 
+
+     for (var i = 0; i < paqueteDeCanciones.length; i++) {      
+       cadena= `${paqueteDeCanciones[i].ID_Tema} / ${paqueteDeCanciones[i].Nombre}`
+       vector.push(cadena); 
+     }
+
+   res.render('bajaCancion', { vector: vector  });
+ }else{
+   alert("No se pudo cargar la cancion");
+ }
+
+});
+
+//--------------------------------------
+//---------------------------------
+//Listar y borrar Usuarios para Admin
+//---------------------------------
+
+app.get('/bajaUsuarios', async function(req, res) {
+  if (req.session.user != "admin" ) {
+    console.log("No esta logueado");
+    res.render('alert', {mensaje: "Debe estar Logueado como Administrador!!!"}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+} else {
+
+  let paqueteDeUsuarios = await MySQL.realizarQuery(`SELECT * FROM Usuarios`)
+ 
+    if (paqueteDeUsuarios.length > 0) {
+      const vector = [] 
+ 
+       for (var i = 0; i < paqueteDeUsuarios.length; i++) {      
+         cadena= `${paqueteDeUsuarios[i].DNI} / ${paqueteDeUsuarios[i].Nombre}`
+         vector.push(cadena); 
+       }
+  
+    // res.render('menuAdmin', { mensaje:"bienvenido", usuario: col});
+   // res.render('mainAdmin', { vector: vector  });
+     res.render('bajaUsuario', { vector: vector  });
+   }else{
+    res.render('alert', {mensaje: "No de pudo cargar la lista de usuarios"}); 
+   }
+  } 
+ });
+
+//----------------------------------------------------
+app.post('/borrarUsuario', async function(req, res) {
+
+  const  dni =  req.body.DNI;
+  //Elimino usuario por dni ingresado  
+  await MySQL.realizarQuery(`DELETE FROM Usuarios WHERE DNI = "${dni}"`)
+
+  //Listo  los usuarios para actualizar la vista 
+  let paqueteDeUsuarios = await MySQL.realizarQuery(`SELECT * FROM Usuarios`)
+  
+  if (paqueteDeUsuarios.length > 0) {
+    const vector = [] 
+
+     for (var i = 0; i < paqueteDeUsuarios.length; i++) {      
+       cadena= `${paqueteDeUsuarios[i].DNI} / ${paqueteDeUsuarios[i].Nombre}`
+       vector.push(cadena); 
+     }
+
+   res.render('bajaUsuario', { vector: vector  });
+ }else{
+  res.render('alert', {mensaje: "No de pudo cargar la lista de usuarios"}); 
+ }
+
+});
+
+//--------------------------------------------------------
+//---------------------------------
+//Listar canciones subidas por usuario para subir a Playlist
+//---------------------------------
+
+app.get('/subirAPlaylist', async function(req, res) {
+  if (req.session.user == null ) {
+
+    console.log("No esta logueado");
+    res.render('alert', {mensaje: "Debe estar Logueado !!!"}); 
+} else {
+
+  let paqueteDeCanciones = await MySQL.realizarQuery(`SELECT * FROM Canciones`)
+ 
+    if (paqueteDeCanciones.length > 0) {
+      const vector = [] 
+ 
+       for (var i = 0; i < paqueteDeCanciones.length; i++) {      
+         cadena= `${paqueteDeCanciones[i].ID_Tema} / ${paqueteDeCanciones[i].Nombre}`
+         vector.push(cadena); 
+       }
+  
+    // res.render('menuAdmin', { mensaje:"bienvenido", usuario: col});
+   // res.render('mainAdmin', { vector: vector  });
+     res.render('cancionAPlaylist', { vector: vector  });
+   }else{
+     alert("No se pudo cargar las canciones");
+   }
+  } 
+ });
+
+//----------------------------------------------------
+app.post('/addToPlaylist', async function(req, res) {
+
+  const playlist = req.body.playlist;
+
+  //Busco ID de Playlist segun el Nombre ingresado
+
+  let temaspl = await MySQL.realizarQuery(`SELECT * FROM Playlist WHERE nombre = "${playlist}";`);
+  
+    
+    const plid = temaspl[0].ID_Playlist; 
+    const id = req.body.cancionId;
+  
+
+
+/*
+  let id_pl = await MySQL.realizarQuery(`SELECT * FROM Playlist WHERE nombre = "${playlist}";`);
+  if (id_pl == null ) {
+      res.render('alert', {mensaje: "No existe Playlist !!!"}); 
+  } else {
+    const id = req.body.cancionId;
+    const id_pl = id_pl;
+
+
+    */
+     //Agrego la cancion por id ingresado  
+    const dev = await MySQL.realizarQuery(`INSERT INTO Temas_Playlist ( ID_Playlist, ID_Tema  ) VALUES ( "${plid}",  "${id}")`)
+    if (dev == null ) {
+      res.render('alert', {mensaje: "No se pudo agregar cancion a la Playlist!!!"}); 
+    } else {
+
+
+    //Listo Pido la lista de preguntas para actualizar la vista 
+    let paqueteDeCanciones = await MySQL.realizarQuery(`SELECT * FROM Canciones`)
+    if (paqueteDeCanciones.length > 0) {
+      const vector = [] 
+      for (var i = 0; i < paqueteDeCanciones.length; i++) {      
+        cadena= `${paqueteDeCanciones[i].ID_Tema} / ${paqueteDeCanciones[i].Nombre}`
+        vector.push(cadena); 
+      }
+      res.render('cancionAPlaylist', { vector: vector  });
+    }else{
+       alert("No se pudo cargar la cancion");
+    } 
+  }
+  
+});
+//--------------------------------------
